@@ -1,0 +1,31 @@
+server:
+  port: 6062
+  
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/projecteidiko
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  application:
+    name: Hotel-Service
+    
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+       default-zone: http://localhost:8761/eureka
+       
+       
+#OKTA Configuration for HOTEL-SERVICE
+okta:
+  oauth2:
+    issuer: https://dev-25626639.okta.com/oauth2/default
+    audience: api://default

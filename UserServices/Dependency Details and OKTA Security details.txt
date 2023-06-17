@@ -1,0 +1,92 @@
+www.Okta developer.com
+
+https://dev-25626639-admin.okta.com/admin/getting-started
+
+Sign-in redirect URIs : http://localhost:6064/login/oauth2/code/okta
+=>OKTA logged in thrugh my google account(niranjanacharty2013@gmail.com and its password)
+Issuer:https://dev-25626639.okta.com/oauth2/default
+Client Id: 0oa9yz36t2NM6jZ0o5d7
+Secret Id: xL0Z8z4PeZe_Sc_AaGA8S_qqoD3jWRcJ0zWx0XLj
+App integration name(Application name) : My Web App
+Application type : Web
+One user created(People):Susanta Charty
+
+Note:First generate token for accessing any services
+=>To generate token: hit below url
+http://localhost:6064/auth/login(OKTA Autho)
+username:chartyniranjana2016@gmail
+pwd:susanta2016@#$
+
+
+=====================================================
+DEpendency for security:
+	<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.okta.spring</groupId>
+      <artifactId>okta-spring-boot-starter</artifactId>
+      <version>2.1.6</version>
+    </dependency>
+=======================================================
+DEpendency for Resilience4j and CircuitBreaker:
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-spring-boot2 -->
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-spring-boot2</artifactId>
+		</dependency>
+===========================================================
+Dependency for Configuration with Eureka:
+<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>4.0.2</version>
+		</dependency>
+==============================================================
+Dependency for FeignClient:
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+=================================================
+Spring Cloud Details:
+<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+=============================================================
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.eidiko</groupId>
+	<artifactId>UserServices</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>UserServices</name>
+	<description>SpBoot User Service</description>
+	<properties>
+		<java.version>17</java.version>
+		<spring-cloud.version>2022.0.3</spring-cloud.version>
+	</properties>
+	<dependencies>

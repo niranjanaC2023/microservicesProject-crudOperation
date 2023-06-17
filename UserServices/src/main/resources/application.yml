@@ -1,0 +1,88 @@
+server:
+  port: 6061
+
+#Eureka Server Configuration
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+       default-zone: http://localhost:8761/eureka
+       
+#Actuator,Circuit brfeaker,resilience4j,Retry and rateLimiter Configuration
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+            
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 6s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: count-based
+  retry:
+    instances:
+      ratingHotelRetry:
+        max-attempts: 3
+        wait-duration: 5s
+  ratelimiter:
+    instances:
+      ratingHotelUserRateLimiter:
+        limit-refresh-period: 4s
+        limit-for-period: 2
+        timeout-duration: 0s
+      
+
+#SPRING DATA JPA CONFIG
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/projecteidiko
+    username: root
+    password: root
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  application:
+    name: User-Service
+#  config:
+#    import: optional:configserver: http://localhost:6065
+
+#OKTA configuration for USER-SERVICE(Here USER-SERVICE is internally calling another service,So USER-SERVICE is a client)
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-25626639.okta.com/oauth2/default
+      client:
+        registration:
+          my-internal-client:  #can take any name for internal client
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oa9yz36t2NM6jZ0o5d7
+            client-secret: xL0Z8z4PeZe_Sc_AaGA8S_qqoD3jWRcJ0zWx0XLj
+        provider:
+          okta:
+            issuer-uri: https://dev-25626639.okta.com/oauth2/default

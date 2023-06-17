@@ -1,0 +1,14 @@
+server:
+  port: 6065
+  
+
+spring:
+  application:
+    name: CONFIG-SERVER
+  
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/niranjana2022/microservice-configuration
+          clone-on-start: true

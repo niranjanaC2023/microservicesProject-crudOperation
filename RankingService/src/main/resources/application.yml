@@ -1,0 +1,41 @@
+#spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    username: hr
+#    url: jdbc:oracle:thin:@localhost:1521:xe
+#    password: hr
+
+server:
+  port: 6063
+
+#Eureka Server Configuration
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+       default-zone: http://localhost:8761/eureka
+       
+#SPRING DATA JPA CONFIG     
+spring:
+  data:
+    mongodb:
+      #uri: mongodb://localhost:27017
+      host: localhost
+      port: 27017
+      database: projecteidiko
+  application:
+    name: Rating-Service
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+ 
+#OKTA Configuration for RAKING-SERVICE
+okta:
+  oauth2:
+    issuer: https://dev-25626639.okta.com/oauth2/default
+    audience: api://default
